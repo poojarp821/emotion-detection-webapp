@@ -1,0 +1,71 @@
+:root {
+  --bg: #f7f7f7;
+  --fg: #111;
+  --accent: #4b5563;
+  --banner-opacity: 0.95;
+}
+html,body,#root{height:100%;}
+body{
+  margin:0;
+  font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background:var(--bg);
+  color:var(--fg);
+  transition: background 400ms ease, color 400ms ease;
+}
+
+.app{display:flex;flex-direction:column;min-height:100vh}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(255,255,255,0.02);box-shadow:0 1px 8px rgba(0,0,0,0.06)}
+.brand{font-weight:700}
+.nav .btn{margin-left:8px}
+.main{flex:1;display:flex;align-items:center;justify-content:center;padding:20px}
+.footer{text-align:center;padding:12px;font-size:12px;color:rgba(0,0,0,0.5)}
+
+.detector{display:flex;gap:20px;align-items:flex-start}
+.video-wrap{position:relative;width:640px;max-width:70vw;border-radius:12px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.08)}
+.video{width:100%;height:auto;display:block;transform:scaleX(-1)}
+.overlay{position:absolute;left:0;top:0;pointer-events:none}
+.controls{width:300px}
+.history{background:rgba(255,255,255,0.03);padding:12px;border-radius:8px}
+.control-row{display:flex;gap:8px;margin-top:8px}
+.btn{padding:8px 10px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);background:var(--accent);color:#fff;cursor:pointer}
+.link{background:transparent;color:var(--fg);border:none}
+
+.banner{position:fixed;left:50%;transform:translateX(-50%);top:18px;padding:8px 16px;border-radius:10px;backdrop-filter: blur(6px);box-shadow:0 6px 20px rgba(0,0,0,0.12);transition:transform 240ms ease,opacity 240ms ease}
+.banner-inner{padding:4px 8px}
+
+/* expression-sensitive subtle styles */
+.banner-neutral{background:rgba(0,0,0,var(--banner-opacity));color:#fff}
+.banner-happy{background:rgba(245,158,11,var(--banner-opacity));color:#111}
+.banner-sad{background:rgba(59,130,246,var(--banner-opacity));color:#fff}
+.banner-angry{background:rgba(239,68,68,var(--banner-opacity));color:#fff}
+.banner-surprised{background:rgba(16,185,129,var(--banner-opacity));color:#fff}
+.banner-disgusted{background:rgba(132,204,22,var(--banner-opacity));color:#111}
+.banner-fearful{background:rgba(124,58,237,var(--banner-opacity));color:#fff}
+
+.loader{padding:12px;border-radius:8px;background:rgba(0,0,0,0.04)}
+
+.customize{padding:20px;max-width:980px;margin:0 auto}
+.customize-grid{display:grid;grid-template-columns:1fr 320px;gap:20px}
+.preview-card{background:rgba(255,255,255,0.02);padding:12px;border-radius:8px}
+.preview-box{padding:16px;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.01))}
+
+.theme-preview{display:flex;align-items:center;gap:8px}
+.theme-preview .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);display:inline-block}
+
+/* subtle transitions for theme variables */
+*:not(input):not(select) {transition: background 300ms ease, color 300ms ease, border-color 300ms ease}
+
+/* small responsive */
+@media (max-width:900px){
+  .detector{flex-direction:column}
+  .controls{width:auto}
+  .video-wrap{max-width:100%}
+}
+
+/* small UX touches */
+.banner{animation:slideDown 420ms cubic-bezier(.2,.8,.2,1)}
+@keyframes slideDown{from{transform:translate(-50%,-10px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
+
+/* optional per-theme class hooks on HTML - not duplicating vars above */
+html[data-active-theme='happy']{filter:saturate(1.05)}
+html[data-active-theme='sad']{filter:grayscale(.03)}
